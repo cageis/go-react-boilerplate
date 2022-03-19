@@ -1,19 +1,28 @@
 import React from "react";
-import {Link, Route, Routes} from "react-router-dom";
+import {NavLink, Route, Routes} from "react-router-dom";
 import CreateToDoPage from "./Pages/CreateToDoPage";
 import ListToDoPage from "./Pages/ListToDoPage";
 import "../assets/app.scss";
+import {EmptyProps, EmptyState} from "./types";
 
-interface Props {}
-interface State {}
 
-export default class App extends React.Component<Props, State> {
+const navLinkElem = (to: string, text: string) => {
+  const active = (classNameMeta: {isActive: boolean}) => classNameMeta.isActive ? "nav-current" : "";
+
+  return (
+    <NavLink to={to} key={text} className={active}>
+      {text}
+    </NavLink>
+  );
+}
+
+export default class App extends React.Component<EmptyProps, EmptyState> {
   render() {
     return (
       <div>
         <nav>
-          <Link to="/" key="List Items">List</Link>
-          <Link to="/create" key="Create">Create</Link>
+          {navLinkElem("/", "List")}
+          {navLinkElem("/create", "Create")}
         </nav>
         <Routes>
           <Route path="/" element={<ListToDoPage/>}/>

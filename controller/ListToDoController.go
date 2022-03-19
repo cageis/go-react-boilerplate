@@ -8,7 +8,7 @@ import (
 )
 
 func ListToDoController(c *gin.Context) {
-	var todoList []types.ToDo
+	var todoList = make([]types.ToDo, 0)
 
 	file, _ := ioutil.ReadFile("list.json")
 	_ = json.Unmarshal(file, &todoList)

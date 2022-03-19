@@ -15,13 +15,17 @@ export default class ListToDoPage extends React.Component<EmptyProps, State> {
   state: State = {items: []};
   componentWillMount() {
     axios.defaults.headers.common = {"Accept": "application/json"};
-    axios.get("/api/todo/list").then((response: ListToDoResponse) => {
+    this.refreshList();
+  }
+
+  refreshList = () => {
+    axios.get("/api/todo").then((response: ListToDoResponse) => {
       this.setState({items: response.data})
     })
   }
 
   onDelete = (name: string, event: any) => {
-
+    axios.delete('/api/todo', {data: {Name: name}}).then(this.refreshList)
   }
 
   render() {
@@ -29,12 +33,11 @@ export default class ListToDoPage extends React.Component<EmptyProps, State> {
     return (
       <div>
         <h1>Items</h1>
-        {items.map((item: ToDoItem) => (
+        {items.length === 0 ? 'There are no todo items.' : items.map((item: ToDoItem) => (
           <div key={item.Name}>
-            <button onClick={(event) => this.onDelete(item.Name, event)}>Delete</button>
             {item.Name} - {item.Description}
+            <button onClick={(event) => this.onDelete(item.Name, event)}>Delete</button>
           </div>
-
         ))}
       </div>
     );

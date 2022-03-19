@@ -3,3 +3,4 @@
 /resource/web/.cache
 /resource/web/node_modules
 /.build
+/list.json

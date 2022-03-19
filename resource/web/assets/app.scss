@@ -4,4 +4,13 @@ nav {
   }
 
   margin-bottom: 20px;
+
+  .nav-current {
+    opacity: 50%;
+    pointer-events: none;
+  }
+}
+
+input:invalid.dirty {
+  border: 2px dashed red;
 }

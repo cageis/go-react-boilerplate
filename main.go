@@ -11,8 +11,9 @@ func main() {
 	assetsRouter := gin.New()
 
 	assetsRouter.Static("/", "./resource/web/.build/")
-	apiRouter.POST("/api/todo/create", controller.CreateToDoController)
-	apiRouter.GET("/api/todo/list", controller.ListToDoController)
+	apiRouter.POST("/api/todo", controller.CreateToDoController)
+	apiRouter.GET("/api/todo", controller.ListToDoController)
+	apiRouter.DELETE("/api/todo", controller.DeleteToDoController)
 	router.Any("/*any", func(context *gin.Context) {
 		controller.MainController(context, apiRouter, assetsRouter)
 	})
